@@ -66,13 +66,15 @@ class Side:
 class Cube:
     def __init__(self,perfectCube = False,sideArray = None):
         # Set Content and position
+        self.sideArray = sideArray
+        self.perfectCube = perfectCube
         self.Content = {}
-        if perfectCube:        
+        if self.perfectCube:
             for i in range (0, 6):
                 self.Content.update({i : Side(SideNames.get(i), Colors.get(i), True)})
         else:
             for i in range (0, 6):
-                self.Content.update({i : sideArray[i]})
+                self.Content.update({i : self.sideArray[i]})
     def show(self):
         for key in self.Content:
             self.Content.get(key).show()
@@ -113,8 +115,63 @@ class Cube:
     #   11. TRPU   |    23. TDPR    #
     #   12. TRPD   |    24. TDPL    #
     #################################
-    
-    def turnCubeRight(self):                                
+
+    def changeCube(self,method):
+        if method == "TCR":
+            self.turnCubeRight()
+        if method == "TCL":
+            self.turnCubeLeft()
+        if method == "TCU":
+            self.turnCubeUp()
+        if method == "TCD":
+            self.turnCubeDown()
+        if method == "RCR":
+            self.rotateCubeRight()
+        if method == "RCL":
+            self.rotateCubeLeft()
+
+        if method == "TLPU":
+            self.turnLeftPartUp()
+        if method == "TLPD":
+           self.turnLeftPartDown()
+        if method == "TVMPU":
+            self.turnVerticalMiddlePartUp()
+        if method == "TVMPD":
+            self.turnVerticalMiddlePartDown()
+        if method == "TRPU":
+            self.turnRightPartUp()
+        if method == "TRPD":
+            self.turnRightPartDown()
+
+        if method == "TFPR":
+            self.turnFrontPartRight()
+        if method == "TFPL":
+            self.turnFrontPartLeft()
+        if method == "TOMPR":
+            self.turnOtherMiddlePartRight()
+        if method == "TOMPL":
+            self.turnOtherMiddlePartLeft()
+        if method == "TBPR":
+            self.turnBackPartRight()
+        if method == "TBPL":
+            self.turnBackPartLeft()
+
+        if method == "TUPR":
+            self.turnUpperPartRight()
+        if method == "TUPL":
+            self.turnUpperPartLeft()
+        if method == "THMPR":
+            self.turnHorizontalMiddlePartRight()
+        if method == "THMPL":
+            self.turnHorizontalMiddlePartLeft()
+        if method == "TDPR":
+            self.turnLowerPartRight()
+        if method == "TDPL":
+            self.turnLowerPartLeft()
+        else:
+            pass
+
+    def turnCubeRight(self):
         FSID = self.getSideByPosition("FS").getID()
         RSID = self.getSideByPosition("RS").getID()
         BSID = self.getSideByPosition("BS").getID()
@@ -138,11 +195,31 @@ class Cube:
         self.getSideByPosition("US").rotateSideLeft()
         self.getSideByPosition("DS").rotateSideRight()
 
-    def turnCubeLeft(self):                                
-        for i in range(0, 3):
-            self.turnCubeRight()
+    def turnCubeLeft(self):
+        FSID = self.getSideByPosition("FS").getID()
+        RSID = self.getSideByPosition("RS").getID()
+        BSID = self.getSideByPosition("BS").getID()
+        LSID = self.getSideByPosition("LS").getID()
 
-    def turnCubeUp(self):                                  
+        newFSContent = self.getSideByPosition("RS").getContent().copy()
+        newRSContent = self.getSideByPosition("BS").getContent().copy()
+        newBSContent = self.getSideByPosition("LS").getContent().copy()
+        newLSContent = self.getSideByPosition("FS").getContent().copy()
+
+        self.getSideByID(FSID).setPosition("LS")
+        self.getSideByID(RSID).setPosition("FS")
+        self.getSideByID(BSID).setPosition("RS")
+        self.getSideByID(LSID).setPosition("BS")
+
+        self.getSideByPosition("FS").setContent(newFSContent)
+        self.getSideByPosition("RS").setContent(newRSContent)
+        self.getSideByPosition("BS").setContent(newBSContent)
+        self.getSideByPosition("LS").setContent(newLSContent)
+
+        self.getSideByPosition("US").rotateSideRight()
+        self.getSideByPosition("DS").rotateSideLeft()
+
+    def turnCubeUp(self):
         FSID = self.getSideByPosition("FS").getID()
         USID = self.getSideByPosition("US").getID()
         BSID = self.getSideByPosition("BS").getID()
@@ -251,7 +328,7 @@ class Cube:
         self.turnRightPartDown()
         self.turnLeftPartDown()
         self.turnCubeUp()
-        
+
     def turnVerticalMiddlePartDown(self):
         for i in range(0, 3):
             self.turnVerticalMiddlePartUp()
@@ -283,41 +360,57 @@ class Cube:
         self.rotateCubeLeft()
         self.turnLeftPartDown()
         self.rotateCubeRight()
-            
+
     def turnHorizontalMiddlePartRight(self):
         self.rotateCubeLeft()
         self.turnVerticalMiddlePartUp()
         self.rotateCubeRight()
 
-            
+
     def turnHorizontalMiddlePartLeft(self):
         self.rotateCubeLeft()
         self.turnVerticalMiddlePartDown()
         self.rotateCubeRight()
-            
+
     def turnLowerPartRight(self):
         self.rotateCubeLeft()
         self.turnRightPartUp()
         self.rotateCubeRight()
-        
-            
+
+
     def turnLowerPartLeft(self):
         self.rotateCubeLeft()
         self.turnRightPartDown()
         self.rotateCubeRight()
+        
+    def reset(self):
+        self.Content = {}
+        if self.perfectCube:
+            for i in range (0, 6):
+                self.Content.update({i : Side(SideNames.get(i), Colors.get(i), True)})
+        else:
+            for i in range (0, 6):
+                self.Content.update({i : self.sideArray[i]})
+                
+testSideArray = []
 
+testLS = Side("LS", ["green", "orange", "white", "orange", "blue", "blue", "orange", "white", "red"])
+testSideArray.append(testLS)
 
+testFS = Side("FS", ["red", "red", "orange", "white", "white", "red", "blue", "green", "red"])
+testSideArray.append(testFS)
 
+testRS = Side("RS", ["white", "green", "white", "blue", "green", "yellow", "yellow", "yellow", "yellow"])
+testSideArray.append(testRS)
 
-#tests = Side("FS", ["Orange", "Orange", "Orange", "White", "White", "White", "White", "White", "White"])
-#test = Cube()
-#test.show()
-#print("----------------")
-#test.turnBackPartRight()
-#test.turnRight()
-#test.turnLeftPartUp()
-#test.show()
-#print(test.Content.get(test.getSideByPosition("FS")).getID())
-#print("----------------")
-#test.turnRight()
-#test.show()
+testBS = Side("BS", ["green", "orange", "orange", "blue", "yellow", "yellow", "blue", "green", "yellow"])
+testSideArray.append(testBS)
+
+testUS = Side("US", ["white", "white", "red", "blue", "red", "red", "blue", "yellow", "blue"])
+testSideArray.append(testUS)
+
+testDS = Side("DS", ["yellow", "orange", "green", "red", "orange", "green", "green", "white", "orange"])
+testSideArray.append(testDS)
+
+rubiksCube = Cube(False, testSideArray)
+perfectCube = Cube(True)

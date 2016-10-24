@@ -55,59 +55,7 @@ def drawCubeFlat(canvas,cubeModel, OPList):
        drawSide(canvas, cubeModel.getSideByPosition(CubeModel.SideNames.get(i)), OPList[i])
 
 
-def changeCube(canvas,cubeModel, oPs, method):
-    if method == "TCR":
-        cubeModel.turnCubeRight()
-    if method == "TCL":
-        cubeModel.turnCubeLeft()
-    if method == "TCU":
-        cubeModel.turnCubeUp()
-    if method == "TCD":
-        cubeModel.turnCubeDown()
-    if method == "RCR":
-        cubeModel.rotateCubeRight()
-    if method == "RCL":
-        cubeModel.rotateCubeLeft()
-        
-    if method == "TLPU":
-        cubeModel.turnLeftPartUp()
-    if method == "TLPD":
-        cubeModel.turnLeftPartDown()
-    if method == "TVMPU":
-        cubeModel.turnVerticalMiddlePartUp()
-    if method == "TVMPD":
-        cubeModel.turnVerticalMiddlePartDown()
-    if method == "TRPU":
-        cubeModel.turnRightPartUp()
-    if method == "TRPD":
-        cubeModel.turnRightPartDown()
-
-    if method == "TFPR":
-        cubeModel.turnFrontPartRight()
-    if method == "TFPL":
-        cubeModel.turnFrontPartLeft()
-    if method == "TOMPR":
-        cubeModel.turnOtherMiddlePartRight()
-    if method == "TOMPL":
-        cubeModel.turnOtherMiddlePartLeft()
-    if method == "TBPR":
-        cubeModel.turnBackPartRight()
-    if method == "TBPL":
-        cubeModel.turnBackPartLeft()
-
-    if method == "TUPR":
-        cubeModel.turnUpperPartRight()
-    if method == "TUPL":
-        cubeModel.turnUpperPartLeft()
-    if method == "THMPR":
-        cubeModel.turnHorizontalMiddlePartRight()
-    if method == "THMPL":
-        cubeModel.turnHorizontalMiddlePartLeft()
-    if method == "TDPR":
-        cubeModel.turnLowerPartRight()
-    if method == "TDPL":
-        cubeModel.turnLowerPartLeft()
-    else:
-        pass
+def drawNewCube(canvas,cubeModel, oPs, method):
+    cubeModel.changeCube(method)
 
     drawCubeFlat(canvas,cubeModel, oPs)
