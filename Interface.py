@@ -3,6 +3,23 @@ import CubeModel
 import Solver
 import InterfaceMethods
 
+"""Give this thing a Level-UP"""
+
+class drawMethod:
+
+    def __init__(self, method):
+        self.drawMethod = method
+
+    def update(self, canvas, cube, OPS, method):
+        self.drawMethod += 1
+        if self.drawMethod > 1:
+            self.drawMethod = 0
+        InterfaceMethods.drawNewCube(self.drawMethod, canvas, cube, OPS, method)
+        
+    def get(self):
+        
+        return self.drawMethod
+
 methodIDs = {0  : "TCR",   1  :  "TCL",   2  :  "TCU",    3  : "TCD",    4  : "RCR",  5  : "RCL",
              6  : "TLPU",  7  :  "TLPD",  8  :  "TVMPU",  9  : "TVMPD",  10 : "TRPU", 11 : "TRPD",
              12 : "TFPR",  13 :  "TFPL",  14 :  "TOMPR",  15 : "TOMPL",  16 : "TBPR", 17 : "TBPL",
@@ -10,7 +27,8 @@ methodIDs = {0  : "TCR",   1  :  "TCL",   2  :  "TCU",    3  : "TCD",    4  : "R
 
 rubiksCube = CubeModel.Cube(True)  # Cube you are working with(Currently solved)
 perfectCube = CubeModel.perfectCube # Instance of a solved cube(Constant)
-oPs = InterfaceMethods.createOPs()
+oPs = InterfaceMethods.createOPsForIsometricDrawing()
+currentDrawMethod = drawMethod(0)
 
 root = Tk()
 root.geometry("1160x550")
@@ -36,114 +54,118 @@ h1.place(x = 20, y = 20)
 
 i = 0
 
-buttonTCR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs, "TCR"), bg = "lightblue")
+buttonTCR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs, "TCR"), bg = "lightblue")
 buttonTCR.place(x = 30, y = 40, width = 150, height = 25)
 i+=1
 
-buttonTCL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs, "TCL"), bg = "lightblue")
+buttonTCL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs, "TCL"), bg = "lightblue")
 buttonTCL.place(x = 200, y = 40, width = 150, height = 25)
 i+=1
 
-buttonTCU = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TCU"), bg = "lightblue")
+buttonTCU = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TCU"), bg = "lightblue")
 buttonTCU.place(x = 30, y = 75, width = 150, height = 25)
 i+=1
 
-buttonTCD = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TCD"), bg = "lightblue")
+buttonTCD = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TCD"), bg = "lightblue")
 buttonTCD.place(x = 200, y = 75, width = 150, height = 25)
 i+=1
 
-buttonRCR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"RCR"), bg = "lightblue")
+buttonRCR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"RCR"), bg = "lightblue")
 buttonRCR.place(x = 30, y = 110, width = 150, height = 25)
 i+=1
 
-buttonRCL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"RCL"), bg = "lightblue")
+buttonRCL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"RCL"), bg = "lightblue")
 buttonRCL.place(x = 200, y = 110, width = 150, height = 25)
 i+=1
 
 
 
-buttonTLPU = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TLPU"), bg = "lightblue")
+buttonTLPU = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TLPU"), bg = "lightblue")
 buttonTLPU.place(x = 30, y = 145, width = 150, height = 25)
 i+=1
 
-buttonTLPD = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TLPD"), bg = "lightblue")
+buttonTLPD = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TLPD"), bg = "lightblue")
 buttonTLPD.place(x = 200, y = 145, width = 150, height = 25)
 i+=1
 
-buttonTVMPU = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TVMPU"), bg = "lightblue")
+buttonTVMPU = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TVMPU"), bg = "lightblue")
 buttonTVMPU.place(x = 30, y = 180, width = 150, height = 25)
 i+=1
 
-buttonTVMPD = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TVMPD"), bg = "lightblue")
+buttonTVMPD = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TVMPD"), bg = "lightblue")
 buttonTVMPD.place(x = 200, y = 180, width = 150, height = 25)
 i+=1
 
-buttonTRPU = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TRPU"), bg = "lightblue")
+buttonTRPU = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TRPU"), bg = "lightblue")
 buttonTRPU.place(x = 30, y = 215, width = 150, height = 25)
 i+=1
 
-buttonTRPD = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TRPD"), bg = "lightblue")
+buttonTRPD = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TRPD"), bg = "lightblue")
 buttonTRPD.place(x = 200, y = 215, width = 150, height = 25)
 i+=1
 
 
 
-buttonTFPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TFPR"), bg = "lightblue")
+buttonTFPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TFPR"), bg = "lightblue")
 buttonTFPR.place(x = 30, y = 250, width = 150, height = 25)
 i+=1
 
-buttonTFPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TFPL"), bg = "lightblue")
+buttonTFPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TFPL"), bg = "lightblue")
 buttonTFPL.place(x = 200, y = 250, width = 150, height = 25)
 i+=1
 
-buttonTOMPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TOMPR"), bg = "lightblue")
+buttonTOMPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TOMPR"), bg = "lightblue")
 buttonTOMPR.place(x = 30, y = 285, width = 150, height = 25)
 i+=1
 
-buttonTOMPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TOMPL"), bg = "lightblue")
+buttonTOMPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TOMPL"), bg = "lightblue")
 buttonTOMPL.place(x = 200, y = 285, width = 150, height = 25)
 i+=1
 
-buttonTBPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TBPR"), bg = "lightblue")
+buttonTBPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TBPR"), bg = "lightblue")
 buttonTBPR.place(x = 30, y = 320, width = 150, height = 25)
 i+=1
 
-buttonTBPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TBPL"), bg = "lightblue")
+buttonTBPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TBPL"), bg = "lightblue")
 buttonTBPL.place(x = 200, y = 320, width = 150, height = 25)
 i+=1
 
 
 
-buttonTUPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TUPR"), bg = "lightblue")
+buttonTUPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TUPR"), bg = "lightblue")
 buttonTUPR.place(x = 30, y = 355, width = 150, height = 25)
 i+=1
 
-buttonTUPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TUPL"), bg = "lightblue")
+buttonTUPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TUPL"), bg = "lightblue")
 buttonTUPL.place(x = 200, y = 355, width = 150, height = 25)
 i+=1
 
-buttonTHMPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"THMPR"), bg = "lightblue")
+buttonTHMPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"THMPR"), bg = "lightblue")
 buttonTHMPR.place(x = 30, y = 390, width = 150, height = 25)
 i+=1
 
-buttonTHMPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"THMPL"), bg = "lightblue")
+buttonTHMPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"THMPL"), bg = "lightblue")
 buttonTHMPL.place(x = 200, y = 390, width = 150, height = 25)
 i+=1
 
-buttonTDPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TDPR"), bg = "lightblue")
+buttonTDPR = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TDPR"), bg = "lightblue")
 buttonTDPR.place(x = 30, y = 425, width = 150, height = 25)
 i+=1
 
-buttonTDPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(screenFC, rubiksCube, oPs,"TDPL"), bg = "lightblue")
+buttonTDPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:InterfaceMethods.drawNewCube(currentDrawMethod.get(), screenFC, rubiksCube, oPs,"TDPL"), bg = "lightblue")
 buttonTDPL.place(x = 200, y = 425, width = 150, height = 25)
 i+=1
 
-buttonTDPL = Button(ControlFrame, text="Solve",command=lambda: Solver.solveByTrying(rubiksCube, perfectCube), bg = "lightblue")
-buttonTDPL.place(x = 30, y = 460, width = 150, height = 25)
+
+buttonSolve = Button(ControlFrame, text="Solve",command=lambda: Solver.solveByTrying(rubiksCube, perfectCube), bg = "lightblue")
+buttonSolve.place(x = 30, y = 460, width = 150, height = 25)
+
+buttonChangeDrawMethod = Button(ControlFrame, text="Change Drawing",command=lambda: currentDrawMethod.update(screenFC, rubiksCube, oPs, None), bg = "lightblue")
+buttonChangeDrawMethod.place(x = 200, y = 460, width = 150, height = 25)
 i+=1
 
 #Buttonland border
 
-InterfaceMethods.drawCubeFlat(screenFC,rubiksCube, oPs)
+InterfaceMethods.drawCubeIsometric(screenFC,rubiksCube, oPs)
 
 root.mainloop()
