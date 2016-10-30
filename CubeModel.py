@@ -116,7 +116,7 @@ class Cube:
     #   12. TRPD   |    24. TDPL    #
     #################################
 
-    def changeCube(self,method):
+    def changeCube(self, method):
         if method == "TCR":
             self.turnCubeRight()
         if method == "TCL":
