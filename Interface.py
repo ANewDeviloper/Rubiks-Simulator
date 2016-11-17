@@ -3,6 +3,7 @@ import MathFile
 import CubeModel
 import Solver
 import InterfaceMethods
+import math
 
 """Give this thing a Level-UP"""
 
@@ -33,19 +34,54 @@ ControlFrame.place(x = 800, y = 0, width = 360, height = 550)
 h1 = Label(ControlFrame, text="Cube:", bg = "lightblue")
 h1.place(x = 20, y = 0)
 
-Constructor = InterfaceMethods.Constructor(screen, "Isometric", rubiksCube)
-V2Functions = MathFile.V2Functions()
+ZP  = MathFile.Point2(250, 300)
 
+K = 200
+
+a = 0
+b = 0
+c = 0
+
+
+
+Constructor = InterfaceMethods.Constructor(ZP,screen,"3D", rubiksCube, InterfaceMethods.generateDict3D(K, a, b, c))
+V2Functions = MathFile.V2Functions()
+V3Functions = MathFile.V3Functions()
+
+def addAngle(Index, angle):
+    global a
+    global b
+    global c
+
+    global K
+    if Index == "alpha":
+        a += angle
+        if a == 360:
+            a = 0
+    if Index == "beta":
+        b += angle
+        if b == 360:
+            b = 0
+    if Index == "gamma":
+        c += angle
+        if c == 360:
+            c = 0
+    Constructor.updateDict3D(InterfaceMethods.generateDict3D(K, a, b, c))
+    Constructor.drawNewCube(None, None, None, None, None)
 # Arguments for the Cube
 
 OP = MathFile.Point2(125, 175) # Position of the Cube
-
-Vector1 = MathFile.Vector2(150, 100) # Width(for Flat)
-Vector2 = MathFile.Vector2(0, 150) # Height(for Flat)
+Vector1 = MathFile.Vector2(150, 100)
+Vector2 = MathFile.Vector2(0, 150)
 Vector3 = MathFile.Vector2(150, -100)
 
-#First Draw
-Constructor.drawCubeIsometric(OP, Vector1, Vector2, Vector3)
+# 3D Section
+
+
+Constructor.drawCube3D()
+
+#Constructor.drawCubeIsometric(OP, Vector1, Vector2, Vector3)
+
 
 ##########################################
 # WARNING | You are entering Buttonland! #
@@ -155,14 +191,28 @@ buttonTDPL = Button(ControlFrame, text=methodIDs.get(i),command=lambda:Construct
 buttonTDPL.place(x = 200, y = 425, width = 150, height = 25)
 i+=1
 
-buttonSolve = Button(ControlFrame, text="Solve",command=lambda: Solver.solveByTrying(rubiksCube, perfectCube), bg = "lightblue")
-buttonSolve.place(x = 30, y = 460, width = 150, height = 25)
+#buttonSolve = Button(ControlFrame, text="Solve",command=lambda: Solver.solveByTrying(rubiksCube, perfectCube), bg = "lightblue")
+#buttonSolve.place(x = 30, y = 460, width = 150, height = 25)
 
-"""
-buttonChangeDrawMethod = Button(ControlFrame, text="Change Drawing",command=lambda: currentDrawMethod.update(screenFC, rubiksCube, oPs, None), bg = "lightblue")
-buttonChangeDrawMethod.place(x = 200, y = 460, width = 150, height = 25)
-i+=1
-"""
+buttonAddAlpha = Button(ControlFrame, text="AddAlpha",command=lambda: addAngle("alpha", 5), bg = "lightblue")
+buttonAddAlpha.place(x = 30, y = 460, width = 150, height = 25)
+
+buttonSubtractAlpha = Button(ControlFrame, text="SubtractAlpha",command=lambda: addAngle("alpha", -5), bg = "lightblue")
+buttonSubtractAlpha.place(x = 200, y = 460, width = 150, height = 25)
+
+buttonAddBeta = Button(ControlFrame, text="AddBeta",command=lambda: addAngle("beta", 5), bg = "lightblue")
+buttonAddBeta.place(x = 30, y = 495, width = 150, height = 25)
+
+buttonSubtractBeta = Button(ControlFrame, text="SubtractBeta",command=lambda: addAngle("beta", -5), bg = "lightblue")
+buttonSubtractBeta.place(x = 200, y = 495, width = 150, height = 25)
+
+buttonAddGamma = Button(ControlFrame, text="AddGamma",command=lambda: addAngle("gamma", -5), bg = "lightblue")
+buttonAddGamma.place(x = 30, y = 530, width = 150, height = 25)
+
+buttonSubtractGamma = Button(ControlFrame, text="SubtractGamma",command=lambda: addAngle("gamma", 5), bg = "lightblue")
+buttonSubtractGamma.place(x = 200, y = 530, width = 150, height = 25)
+
+
 #Buttonland border
 
 

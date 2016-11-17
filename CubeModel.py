@@ -24,7 +24,7 @@ class Side:
 
             # Usable, cause key is an int from 0 - 8
             if((key+1)%6) == 0:
-                print(self.Position, end = "")
+                print(self.Position, end="")
 
             if ((key+1)%3) == 0:
                 print()
@@ -75,6 +75,7 @@ class Cube:
         else:
             for i in range (0, 6):
                 self.Content.update({i : self.sideArray[i]})
+
     def show(self):
         for key in self.Content:
             self.Content.get(key).show()
@@ -96,6 +97,7 @@ class Cube:
                 ret = self.Content.get(key)
                 break
         return ret
+
     #=========================#
     # The Cube-Change Methods #
     #=========================#
@@ -391,7 +393,8 @@ class Cube:
         else:
             for i in range (0, 6):
                 self.Content.update({i : self.sideArray[i]})
-                
+
+
 testSideArray = []
 
 testLS = Side("LS", ["green", "orange", "white", "orange", "blue", "blue", "orange", "white", "red"])
