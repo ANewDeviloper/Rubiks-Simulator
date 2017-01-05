@@ -1,5 +1,8 @@
+# -*- coding: utf8 -*-
+
+import Dicts
+
 Colors = {0 : "blue", 1 : "white", 2 : "green", 3 : "yellow", 4 : "red", 5 : "orange"}
-SideNames = {0 : "LS", 1 : "FS", 2 : "RS", 3 : "BS", 4 : "US", 5 : "DS"}
 
 
 
@@ -9,6 +12,7 @@ class Side:
         self.ID = None
         self.Content = {}
         self.Position = position
+
         if allEqual:
             self.ID = color
             for i in range(0, 9):
@@ -71,7 +75,7 @@ class Cube:
         self.Content = {}
         if self.perfectCube:
             for i in range (0, 6):
-                self.Content.update({i : Side(SideNames.get(i), Colors.get(i), True)})
+                self.Content.update({i : Side(Dicts.SideNames.get(i), Colors.get(i), True)})
         else:
             for i in range (0, 6):
                 self.Content.update({i : self.sideArray[i]})
@@ -389,7 +393,7 @@ class Cube:
         self.Content = {}
         if self.perfectCube:
             for i in range (0, 6):
-                self.Content.update({i : Side(SideNames.get(i), Colors.get(i), True)})
+                self.Content.update({i : Side(Dicts.SideNames.get(i), Colors.get(i), True)})
         else:
             for i in range (0, 6):
                 self.Content.update({i : self.sideArray[i]})

@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 import CubeModel
 
 methodIDs = {1  : "TLPU",  2  :  "TLPD",  3  :  "TVMPU",  4   : "TVMPD",  5  : "TRPU",  6  : "TRPD",
